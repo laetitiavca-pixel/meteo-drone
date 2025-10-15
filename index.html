@@ -5,48 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>🌦️ Météo Drone — Vent, Rafales, Radar & Prévisions 48h</title>
 
-  <!-- Open Graph (Discord/Twitter) -->
+  <!-- Open Graph (Discord/Twitter) — remplace TON-DOMAINE -->
   <meta property="og:title" content="🌦️ Météo Drone — Carte des vents & radar pluie en direct"/>
-  <meta property="og:description" content="Vent, rafales, radar pluie et prévisions 48h. Estimations de vitesse du vent jusqu'à 500 m d'altitude (profil 1/7)."/>
+  <meta property="og:description" content="Vent, rafales, pression, radar pluie et prévisions 48h. Estimations du vent jusqu'à 500 m d'altitude (profil 1/7)."/>
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://meteo-drone.vercel.app"/>
-  <meta property="og:image" content="https://meteo-drone.vercel.app/og.png"/>
-
+  <meta property="og:url" content="https://TON-DOMAINE.vercel.app/"/>
+  <meta property="og:image" content="https://TON-DOMAINE.vercel.app/og.png"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="theme-color" content="#3A9BDC"/>
 
   <style>
-    :root {
-      --bg:#0b1220;
-      --panel:#121a33;
-      --accent:#18a0fb;
-      --text:#eef3ff;
-      --muted:#8aa0c7;
-      --ok:#2ecc71;
-      --warn:#f1c40f;
+    :root{
+      --bg:#0b1220; --panel:#121a33; --accent:#18a0fb;
+      --text:#eef3ff; --muted:#8aa0c7;
     }
-    * { box-sizing: border-box; }
-    html,body { height:100%; margin:0; background:linear-gradient(180deg,#0b1220,#0e1430 40%,#0b1220); color:var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
-    .wrap { max-width:1200px; margin:24px auto; padding:0 16px; }
-    .header { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-    .logo { width:36px; height:36px; border-radius:12px; background:linear-gradient(135deg,#3aa8ff,#1d6fff); display:grid; place-items:center; box-shadow:0 6px 18px rgba(24,160,251,.4);}
-    .tabs { display:flex; gap:8px; margin:12px 0 18px; flex-wrap:wrap; }
-    .tab { padding:10px 14px; border-radius:12px; background:rgba(255,255,255,.06); cursor:pointer; user-select:none; }
-    .tab.active { background:var(--accent); color:#02142b; font-weight:700; }
-    .grid { display:grid; grid-template-columns: 2fr 1fr; gap:16px; }
-    iframe { width:100%; height:540px; border:0; border-radius:16px; box-shadow:0 12px 26px rgba(0,0,0,.3); }
-    .card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; backdrop-filter: blur(4px); }
-    .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:8px 0; }
-    .pill { padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.08); color:var(--muted); font-size:12px; }
-    .table { width:100%; border-collapse: collapse; margin-top:6px; font-size:14px; }
-    .table th, .table td { padding:8px 10px; text-align:right; border-bottom:1px dashed rgba(255,255,255,.08);}
-    .table th:first-child, .table td:first-child { text-align:left; }
-    .note { color:var(--muted); font-size:12px; margin-top:8px; }
-    .footer { text-align:center; color:var(--muted); font-size:12px; margin:14px 0; }
-    .btn { background:var(--accent); color:#02142b; border:0; padding:8px 12px; border-radius:10px; font-weight:700; cursor:pointer; }
-    .small { font-size:12px; color:var(--muted);}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#0b1220,#0e1430 40%,#0b1220);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    .wrap{max-width:1200px;margin:24px auto;padding:0 16px}
+    .header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#3aa8ff,#1d6fff);display:grid;place-items:center;box-shadow:0 6px 18px rgba(24,160,251,.4)}
+    .small{font-size:12px;color:var(--muted)}
+    .btn{background:var(--accent);color:#02142b;border:0;padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+    .tabs{display:flex;gap:8px;margin:12px 0 8px;flex-wrap:wrap}
+    .tab{padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.06);cursor:pointer;user-select:none}
+    .tab.active{background:var(--accent);color:#02142b;font-weight:700}
+    .subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+    .pill.small{padding:6px 10px;border-radius:999px;border:0;background:rgba(255,255,255,.08);color:#cfe2ff;font-size:12px;cursor:pointer}
+    .pill.small.active{background:#18a0fb;color:#02142b;font-weight:700}
+    #mapWrap{width:100%}
+    #mapFrame{width:100%;height:50vh;border:0;border-radius:16px;box-shadow:0 12px 26px rgba(0,0,0,.3)}
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-top:12px}
+    @media (max-width: 980px){.grid{grid-template-columns:1fr}}
+    .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;backdrop-filter: blur(4px)}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:8px 0}
+    .pill{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);color:var(--muted);font-size:12px}
+    .table{width:100%;border-collapse:collapse;margin-top:6px;font-size:14px}
+    .table th,.table td{padding:8px 10px;text-align:right;border-bottom:1px dashed rgba(255,255,255,.08)}
+    .table th:first-child,.table td:first-child{text-align:left}
+    .footer{text-align:center;color:var(--muted);font-size:12px;margin:14px 0}
   </style>
 </head>
 <body>
@@ -55,31 +53,52 @@
       <div class="logo">🛰️</div>
       <div>
         <div style="font-weight:800;">Météo Drone</div>
-        <div class="small">Vents, rafales, radar pluie & prévisions 48h — centré sur votre position.</div>
+        <div class="small">Vents, rafales, pression & radar pluie — prévisions 48h — centré sur votre position.</div>
       </div>
       <div style="flex:1"></div>
       <button id="locBtn" class="btn">📍 Utiliser ma position</button>
     </div>
 
+    <!-- Onglets principaux -->
     <div class="tabs">
       <div class="tab active" data-tab="wind">💨 Carte des vents</div>
       <div class="tab" data-tab="radar">🌧️ Radar pluie</div>
+      <div class="tab" data-tab="pressure">🌪️ Pression</div>
+    </div>
+
+    <!-- Mini-onglets (couches rapides) -->
+    <div class="subtabs">
+      <button class="pill small active" data-overlay="wind">Vent</button>
+      <button class="pill small" data-overlay="gust">Rafales</button>
+      <button class="pill small" data-overlay="temp">Température</button>
+      <button class="pill small" data-overlay="clouds">Nuages</button>
+      <button class="pill small" data-overlay="rainAccu">Pluie 24h</button>
+    </div>
+
+    <!-- Carte Windy (pleine largeur, 50% hauteur) -->
+    <div id="mapWrap">
+      <iframe id="mapFrame" title="Carte Windy"
+        src="https://embed.windy.com/embed2.html?lat=48.85&lon=2.35&detailLat=48.85&detailLon=2.35&zoom=7&level=surface&overlay=wind&menu=&message=true&marker=&calendar=&pressure=&type=map&location=coordinates&detail=true&metricWind=kmh&metricTemp=%C2%B0C&radarRange=-1"
+        allow="fullscreen"></iframe>
+    </div>
+
+    <!-- Trafic aérien (affiché seulement quand 'Radar' est actif) -->
+    <div id="traffic" class="card" style="display:none; margin-top:12px;">
+      <div style="font-weight:700;margin-bottom:8px;">✈️ Trafic aérien en direct</div>
+      <iframe id="adsbFrame" title="ADS-B Exchange"
+        src="https://globe.adsbexchange.com/?lat=48.85&lon=2.35&zoom=7&hideSidebar&hideButtons"
+        style="width:100%; height:400px; border:0; border-radius:12px;"></iframe>
+      <div class="small" style="margin-top:6px">Source : ADS-B Exchange (intégration autorisée). Sur mobile, cela peut consommer plus de batterie.</div>
     </div>
 
     <div class="grid">
-      <div>
-        <div id="panel-wind">
-          <iframe id="windFrame" title="Carte des vents (Windy)" allow="fullscreen"
-            src="https://embed.windy.com/embed2.html?lat=48.85&lon=2.35&detailLat=48.85&detailLon=2.35&zoom=6&level=surface&overlay=wind&menu=&message=true&marker=&calendar=&pressure=&type=map&location=coordinates&detail=true&metricWind=kmh&metricTemp=%C2%B0C&radarRange=-1">
-          </iframe>
-        </div>
-        <div id="panel-radar" style="display:none;">
-          <iframe id="radarFrame" title="Radar pluie (Windy)" allow="fullscreen"
-            src="https://embed.windy.com/embed2.html?lat=48.85&lon=2.35&detailLat=48.85&detailLon=2.35&zoom=6&level=surface&overlay=radar&menu=&message=true&marker=&calendar=&pressure=&type=map&location=coordinates&detail=true&metricWind=kmh&metricTemp=%C2%B0C&radarRange=-1">
-          </iframe>
-        </div>
+      <!-- Colonne gauche : Prévisions -->
+      <div class="card">
+        <div style="font-weight:700;">Prévisions 48h (toutes les 6h)</div>
+        <div id="forecast" class="small" style="margin-top:8px;">Chargement…</div>
       </div>
 
+      <!-- Colonne droite : Panneau météo -->
       <div class="card">
         <div class="row" style="justify-content:space-between;">
           <div>
@@ -97,105 +116,149 @@
 
         <table class="table" id="altTable">
           <thead>
-            <tr>
-              <th>Altitude</th>
-              <th>Vitesse (km/h)</th>
-            </tr>
+            <tr><th>Altitude</th><th>Vitesse (km/h)</th><th>Direction</th></tr>
           </thead>
           <tbody></tbody>
         </table>
 
-        <div class="note">
-          Vitesse du vent estimée aux altitudes supérieures via profil éolien <b>1/7</b> : v(z) = v₁₀ × (z/10)^0.14.
-          Ces valeurs donnent un ordre de grandeur utile à l’orientation des vols, mais peuvent différer des modèles.
+        <div class="small" style="margin-top:8px;">
+          Vitesse aux altitudes supérieures estimée via profil éolien <b>1/7</b> : v(z) = v₁₀ × (z/10)^0.14.
+          Ordre de grandeur utile, peut différer des modèles.
         </div>
-
-        <div style="margin-top:12px; font-weight:700;">Prévisions 48h</div>
-        <div id="forecast" class="small">Chargement…</div>
       </div>
     </div>
 
     <div class="footer">
-      Données météo : Open‑Meteo • Cartes : Windy (ECMWF). — Ce site n’est pas destiné à un usage aéronautique officiel.
+      Données météo : Open-Meteo • Cartes : Windy (ECMWF). • Trafic : ADS-B Exchange.
     </div>
   </div>
 
   <script>
-    // Tabs
+    const mapFrame = document.getElementById('mapFrame');
+    const trafficBox = document.getElementById('traffic');
+    const adsb = document.getElementById('adsbFrame');
+
+    // --- Onglets principaux ---
     document.querySelectorAll('.tab').forEach(t => {
       t.addEventListener('click', () => {
         document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
         t.classList.add('active');
-        const tab = t.dataset.tab;
-        document.getElementById('panel-wind').style.display = tab==='wind'?'block':'none';
-        document.getElementById('panel-radar').style.display = tab==='radar'?'block':'none';
+
+        const overlay = t.dataset.tab === 'wind' ? 'wind'
+                      : t.dataset.tab === 'radar' ? 'radar'
+                      : 'pressure';
+        // sync mini-onglets visuellement
+        document.querySelectorAll('.subtabs .pill.small').forEach(p => p.classList.remove('active'));
+        const match = document.querySelector(`.subtabs .pill.small[data-overlay="${overlay}"]`);
+        if (match) match.classList.add('active');
+
+        setOverlay(overlay);
       });
     });
 
-    // Geolocation
-    const locBtn = document.getElementById('locBtn');
-    locBtn.addEventListener('click', () => {
+    // --- Mini-onglets (pills) ---
+    document.querySelectorAll('.subtabs .pill.small').forEach(p => {
+      p.addEventListener('click', () => {
+        document.querySelectorAll('.subtabs .pill.small').forEach(x => x.classList.remove('active'));
+        p.classList.add('active');
+        setOverlay(p.dataset.overlay); // wind/gust/temp/clouds/rainAccu...
+      });
+    });
+
+    function setOverlay(overlay){
+      const url = new URL(mapFrame.src);
+      url.searchParams.set('overlay', overlay);
+      mapFrame.src = url.toString();
+      // Trafic visible seulement avec 'radar'
+      if (trafficBox) trafficBox.style.display = (overlay === 'radar') ? 'block' : 'none';
+    }
+
+    // --- Géolocalisation ---
+    document.getElementById('locBtn').addEventListener('click', () => {
       if (!navigator.geolocation) return alert("Géolocalisation non supportée.");
       navigator.geolocation.getCurrentPosition(pos => {
         const lat = +pos.coords.latitude.toFixed(3);
         const lon = +pos.coords.longitude.toFixed(3);
-        setLocation(lat, lon, true);
+        setLocation(lat, lon);
       }, () => alert("Impossible de récupérer la position."));
     });
 
-    function setLocation(lat, lon, updateFrames) {
-      document.getElementById('point').textContent = `(${lat}, ${lon})`;
-      if (updateFrames) {
-        const base = "https://embed.windy.com/embed2.html";
-        const wf = document.getElementById('windFrame');
-        const rf = document.getElementById('radarFrame');
-        const common = `lat=${lat}&lon=${lon}&detailLat=${lat}&detailLon=${lon}&zoom=7&level=surface&menu=&message=true&marker=&calendar=&pressure=&type=map&location=coordinates&detail=true&metricWind=kmh&metricTemp=%C2%B0C&radarRange=-1`;
-        wf.src = `${base}?${common}&overlay=wind`;
-        rf.src = `${base}?${common}&overlay=radar`;
+    function updateEmbedsLatLon(lat, lon){
+      // Windy
+      const windy = new URL(mapFrame.src);
+      windy.searchParams.set('lat', lat);
+      windy.searchParams.set('lon', lon);
+      windy.searchParams.set('detailLat', lat);
+      windy.searchParams.set('detailLon', lon);
+      mapFrame.src = windy.toString();
+      // ADS-B
+      if (adsb){
+        const a = new URL(adsb.src);
+        a.searchParams.set('lat', lat);
+        a.searchParams.set('lon', lon);
+        adsb.src = a.toString();
       }
-      fetchMeteo(lat, lon);
     }
 
-    // Meteo data (Open-Meteo)
-    async function fetchMeteo(lat, lon) {
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,wind_speed_10m,wind_gusts_10m&forecast_days=2&timezone=auto`;
+    // --- Données météo Open-Meteo ---
+    async function fetchMeteo(lat, lon){
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,wind_speed_10m,wind_gusts_10m,wind_direction_10m&forecast_days=2&timezone=auto`;
       const res = await fetch(url);
       const data = await res.json();
-      const nowIndex = 0;
-      const T = data.hourly.temperature_2m[nowIndex];
-      const V10 = data.hourly.wind_speed_10m[nowIndex];
-      const G10 = data.hourly.wind_gusts_10m[nowIndex];
+      const times = data.hourly.time;
+
+      // approx "maintenant" = premier pas
+      const i = 0;
+      const T = data.hourly.temperature_2m[i];
+      const V10 = data.hourly.wind_speed_10m[i];
+      const G10 = data.hourly.wind_gusts_10m[i];
+      const DIR10 = data.hourly.wind_direction_10m[i];
+
       document.getElementById('temp').textContent = Math.round(T);
       document.getElementById('v10').textContent = Math.round(V10);
       document.getElementById('gust').textContent = Math.round(G10);
-      document.getElementById('updated').textContent = new Date(data.hourly.time[nowIndex]).toLocaleString();
+      document.getElementById('updated').textContent = new Date(times[i]).toLocaleString();
 
+      // Vitesse par altitude (profil 1/7) + direction approx = direction 10 m
       const alts = [10,30,60,120,200,300,400,500];
       const tbody = document.querySelector('#altTable tbody');
       tbody.innerHTML = "";
       alts.forEach(z => {
         const v = V10 * Math.pow(z/10, 0.14);
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${z} m</td><td><b>${Math.round(v)}</b></td>`;
+        tr.innerHTML = `<td>${z} m</td><td><b>${Math.round(v)}</b></td><td>${degToCardinal(DIR10)} (${Math.round(DIR10)}°)</td>`;
         tbody.appendChild(tr);
       });
 
-      // 48h forecast every 6h
-      const times = data.hourly.time;
+      // Prévisions 48h toutes les 6h
       let html = "";
-      for (let i=0; i<Math.min(times.length, 48); i+=6) {
-        const dt = new Date(times[i]);
-        const t = data.hourly.temperature_2m[i];
-        const v = data.hourly.wind_speed_10m[i];
-        const g = data.hourly.wind_gusts_10m[i];
+      for (let k=0; k<Math.min(times.length, 48); k+=6){
+        const dt = new Date(times[k]);
+        const t  = data.hourly.temperature_2m[k];
+        const v  = data.hourly.wind_speed_10m[k];
+        const g  = data.hourly.wind_gusts_10m[k];
         html += `<div class='row'><div class='pill'>${dt.toLocaleString()}</div><div class='pill'>T: <b>${Math.round(t)}°C</b></div><div class='pill'>V10: <b>${Math.round(v)} km/h</b></div><div class='pill'>Raf: <b>${Math.round(g)} km/h</b></div></div>`;
       }
       document.getElementById('forecast').innerHTML = html;
     }
 
-    // init Paris
-    setLocation(48.85, 2.35, false);
+    function degToCardinal(d){
+      const dirs = ['N','NE','E','SE','S','SW','W','NW'];
+      return dirs[Math.round(d/45) % 8];
+    }
+
+    function setLocation(lat, lon){
+      document.getElementById('point').textContent = `(${lat}, ${lon})`;
+      updateEmbedsLatLon(lat, lon);
+      fetchMeteo(lat, lon);
+    }
+
+    // Init Paris
+    setOverlay('wind');
+    setLocation(48.85, 2.35);
   </script>
 </body>
 </html>
+
+
 <!-- redeploy -->
